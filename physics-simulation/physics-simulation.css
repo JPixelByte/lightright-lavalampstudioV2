@@ -1,0 +1,145 @@
+.physics-mode-heading {
+  margin-top: 22px;
+}
+
+.physics-mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 10px;
+  border: 2px solid #090a0d;
+  border-radius: 10px;
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.physics-mode-switch:hover,
+.physics-mode-switch:focus-visible {
+  background: rgba(var(--accent-rgb), 0.14);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.16);
+}
+
+.physics-mode-switch:hover {
+  transform: scale(1.02);
+}
+
+.physics-mode-switch:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.75);
+  outline-offset: 2px;
+}
+
+.physics-mode-track {
+  position: relative;
+  flex: 0 0 3.15rem;
+  width: 3.15rem;
+  height: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.physics-mode-icon {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  place-items: center;
+  font-size: 0.76rem;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.physics-mode-lamp {
+  left: 0.18rem;
+  opacity: 0.55;
+}
+
+.physics-mode-atom {
+  right: 0.18rem;
+  opacity: 1;
+}
+
+.physics-mode-knob {
+  position: absolute;
+  top: 50%;
+  left: 0.18rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 1px solid #090a0d;
+  border-radius: 50%;
+  background: #f2c94c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transform: translateY(-50%);
+  transition: left 0.28s ease;
+}
+
+.physics-mode-switch[aria-checked="true"] .physics-mode-knob {
+  left: calc(100% - 1.35rem - 0.18rem);
+}
+
+.physics-mode-switch[aria-checked="true"] .physics-mode-lamp {
+  opacity: 1;
+}
+
+.physics-mode-switch[aria-checked="true"] .physics-mode-atom {
+  opacity: 0.55;
+}
+
+.physics-mode-label {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.physics-mode-note {
+  margin: 7px 2px 0;
+  color: var(--muted);
+  font:
+    9px "Share Tech Mono",
+    monospace;
+}
+
+.settings .physics-mode-switch {
+  border-color: #090a0d;
+}
+
+.paper-physics-canvas {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.app[data-renderer="paper"] #lampCanvas {
+  visibility: hidden;
+}
+
+.app[data-renderer="paper"] #lampPowerToggle {
+  left: var(--paper-power-left) !important;
+  top: var(--paper-controls-top) !important;
+  width: var(--paper-power-size) !important;
+  height: var(--paper-power-size) !important;
+  font-size: var(--paper-power-font-size) !important;
+}
+
+.app[data-renderer="paper"] #lampToggle {
+  display: grid !important;
+  left: var(--paper-play-left) !important;
+  top: var(--paper-controls-top) !important;
+  width: var(--paper-play-size) !important;
+  height: var(--paper-play-size) !important;
+  font-size: var(--paper-play-font-size) !important;
+}
+
+.app[data-renderer="paper"] #lampToggle[hidden] {
+  display: none !important;
+}

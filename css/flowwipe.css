@@ -1,0 +1,43 @@
+* {
+  position: relative;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+#middle,
+#end {
+  visibility: hidden;
+}
+
+#water-wave {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gs-dev-tools {
+  z-index: 30 !important;
+}
+
+.gs-dev-tools-hidden .gs-dev-tools {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 700px) {
+  .gs-dev-tools {
+    display: none !important;
+  }
+}

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <title>Lucent — Custom Lava Lamp Studio</title>
+  <link rel="icon" type="image/png" sizes="200x200" href="images/lavalamp-icon.png">
+  <link rel="stylesheet" href="css/lavalamp.css">
+  <link rel="stylesheet" href="css/flowwipe.css">
+  <link rel="stylesheet" href="css/macOSnav.css">
+  <link rel="stylesheet" href="physics-simulation/physics-simulation.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=BBH+Bogle&family=Zen+Dots&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+</head>
+
+<body>
+  <div id="emitter"></div>
+
+  <!-- Start of: Theme Night/Day Toggle Mode -->
+  <div class="theme-toggle-switch">
+    <button id="theme" class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+      <span class="theme-toggle-track" aria-hidden="true">
+        <span class="theme-toggle-icon theme-toggle-sun">☀</span>
+        <span class="theme-toggle-icon theme-toggle-moon">☾</span>
+        <span class="theme-toggle-knob"></span>
+      </span>
+      <span class="theme-toggle-label">Dark</span>
+    </button>
+  </div>
+  <!-- End of: Theme Night/Day Toggle Mode  -->
+
+  <!-- Start of: Water Wave-->
+  <!-- The water-wave transition runs on page load; Space and GSAP Developer Tools control its playhead. -->
+
+
+  <svg id="water-wave" class="overlay overlay--2" viewBox="0 0 100 100" preserveAspectRatio="none">
+
+    <!-- end -->
+    <path
+      d="M -7.02 1.43 C -2.73 -4.51 12.1 -2.88 50.66 -2.88 C 88.57 -2.88 108.88 -2.47 109.96 0.12 L 121.52 139.94 L 121.37 157.73 L -24.93 158.32 C -24.84 158.79 -25.51 139.95 -26.26 136.05 C -26.37 135.95 -12.42 8.9 -7.02 1.43 Z"
+      style="fill: rgb(67, 217, 172);" id="end"></path>
+
+    <!-- middle -->
+    <path
+      d="M -9.12 66.2 C -4.83 60.26 12.51 24.75 51.07 24.75 C 88.98 24.75 108.04 64.05 109.12 66.64 L 121.52 139.94 L 121.37 157.73 L -24.93 158.32 C -24.84 158.79 -25.51 139.95 -26.26 136.05 C -26.37 135.95 -14.52 73.67 -9.12 66.2 Z"
+      style="fill: rgb(84, 226, 245);" id="middle"></path>
+
+    <!-- start1 -->
+    <path
+      d="M -14.22 112.67 C -9.93 106.73 9.63 101.25 48.19 101.25 C 86.1 101.25 122.34 102.71 123.42 105.3 L 122.22 139.11 L 122.07 156.9 L -24.23 157.49 C -24.14 157.96 -24.81 139.12 -25.56 135.22 C -25.67 135.12 -19.62 120.14 -14.22 112.67 Z"
+      style="stroke-width: 1; fill: rgb(0, 216, 216);" id="start1"></path>
+
+    <!-- start2 -->
+    <path
+      d="M -14.22 112.67 C -9.93 106.73 9.63 101.25 48.19 101.25 C 86.1 101.25 122.34 102.71 123.42 105.3 L 122.22 139.11 L 122.07 156.9 L -24.23 157.49 C -24.14 157.96 -24.81 139.12 -25.56 135.22 C -25.67 135.12 -19.62 120.14 -14.22 112.67 Z"
+      style="fill:rgb(0, 0, 0); stroke-width: 1;" id="start2"></path>
+
+  </svg>
+
+  <!--End of: Water Flow-->
+
+
+
+  <div class="app" data-power-switch="true" data-button-hover-sound="soundeffects/flitsmall.mp3"
+    data-mobile-dock-toggle="true">
+    <header class="topbar">
+      <div class="top-left-actions">
+        <button class="icon-button" id="fullscreenButton" title="Toggle fullscreen" aria-label="Enter fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="icon-button" id="refreshPageButton" type="button" title="Refresh page" aria-label="Refresh page">
+          <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+
+      <div class="brand">
+        <div class="brand-mark"><i class="fa-solid fa-droplet"></i></div>
+        <div>
+          <div class="brand-name">LIGHT RIGHT</div>
+          <div class="brand-sub">LAVA LAMP STUDIO</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-button" id="helpButton" title="Open help" aria-label="Open help">
+          <i class="fa-regular fa-circle-question"></i>
+        </button>
+        <label class="color-control" title="Change background color" aria-label="Change background color">
+          <input id="bgColor" type="color" value="#101114">
+        </label>
+        <button class="icon-button" id="toggleSettings" title="Toggle studio controls"
+          aria-label="Toggle studio controls">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="mobile-shortcuts" aria-label="Mobile animation controls">
+      <button class="mobile-shortcut" id="replayWaveButton" type="button" aria-label="Replay water wave"
+        title="Replay water wave">
+        <i class="fa-solid fa-water" aria-hidden="true"></i>
+      </button>
+      <button class="mobile-shortcut" id="toggleDockButton" type="button" aria-label="Show Mac-style dock"
+        aria-expanded="false" title="Show Mac-style dock">
+        <i class="fa-solid fa-eye" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <main class="stage" aria-label="Animated lava lamp">
+      <canvas id="lampCanvas"></canvas>
+      <canvas id="paperPhysicsCanvas" class="paper-physics-canvas" aria-label="Paper.js lava metaball simulation"
+        hidden></canvas>
+      <button class="lamp-power-toggle" id="lampPowerToggle" type="button" aria-label="Turn lava lamp on"
+        aria-pressed="false" title="Turn lava lamp on">
+        <i class="fa-solid fa-power-off" aria-hidden="true"></i>
+      </button>
+      <button class="lamp-toggle" id="lampToggle" type="button" aria-label="Pause lava lamp" aria-pressed="true"
+        title="Pause lava lamp" hidden>
+        <i class="fa-solid fa-pause" aria-hidden="true"></i>
+      </button>
+    </main>
+
+    <div class="size-control" role="group" aria-label="Lamp size">
+      <button class="size-button" data-size="small"><i class="fa-solid fa-minimize" aria-hidden="true"></i>
+        Small</button>
+      <button class="size-button active" data-size="medium"><i class="fa-regular fa-square" aria-hidden="true"></i>
+        Medium</button>
+      <button class="size-button" data-size="large"><i class="fa-solid fa-expand" aria-hidden="true"></i> Large</button>
+    </div>
+
+    <aside class="settings collapsed" id="settingsPanel">
+      <div class="settings-head">
+        <div>
+          <div class="settings-title">LAMP STUDIO</div>
+          <div class="settings-kicker">SHAPE YOUR ATMOSPHERE</div>
+        </div>
+        <button class="icon-button" id="closeSettings" aria-label="Close controls"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="settings-scroll">
+        <div class="section-label">Curated moods</div>
+        <div class="presets">
+          <button class="preset-button" data-preset="aurora">Aurora</button>
+          <button class="preset-button" data-preset="sunset">Sunset</button>
+          <button class="preset-button" data-preset="ocean">Ocean</button>
+        </div>
+        <div class="section-label">Custom moods</div>
+        <div class="custom-moods" id="customMoods" aria-label="Saved custom moods"></div>
+        <button class="save-mood-button" id="saveMood">
+          <i class="fa-solid fa-bookmark" aria-hidden="true"></i> &nbsp; Save current mood
+        </button>
+        <button class="random-button" id="randomize"><i class="fa-solid fa-wand-magic-sparkles"></i> &nbsp; Generate A
+          New Mood</button>
+
+        <div class="section-label physics-mode-heading">Physics Simulation</div>
+        <button class="physics-mode-switch" type="button" role="switch" aria-checked="false"
+          aria-label="Switch to Physics Simulation mode" title="Switch to Paper.js simulation">
+          <span class="physics-mode-track" aria-hidden="true">
+            <span class="physics-mode-icon physics-mode-lamp">🏮</span>
+            <span class="physics-mode-icon physics-mode-atom">🥨</span>
+            <!--🚀🔥🧲💡🔌⚡🥨 -->
+            <span class="physics-mode-knob"></span>
+          </span>
+          <span class="physics-mode-label">Physics Simulation</span>
+        </button>
+        <div class="physics-mode-note">Simulation is isolated; controls coming later</div>
+
+        <div class="section-label" style="margin-top:22px">Lamp geometry</div>
+        <div class="control">
+          <div class="control-head"><label for="shape">Vessel silhouette</label></div>
+          <select id="shape">
+            <option value="classic">Classic</option>
+            <option value="tall">Tall</option>
+            <option value="round">Round</option>
+            <option value="tapered">Tapered</option>
+          </select>
+        </div>
+
+        <div class="section-label">Wax & liquid</div>
+        <div class="control">
+          <div class="control-head"><label for="waxColor">Wax color</label></div>
+          <input id="waxColor" type="color" value="#247bff">
+        </div>
+        <div class="control">
+          <div class="control-head"><label for="liquidColor">Liquid tint</label></div>
+          <input id="liquidColor" type="color" value="#243b73">
+        </div>
+        <div class="control">
+          <div class="control-head"><label for="blobCount">Wax amount</label><span class="value"
+              id="blobCountValue">8</span></div>
+          <input id="blobCount" type="range" min="3" max="14" value="8">
+        </div>
+        <div class="control">
+          <div class="control-head"><label for="blobSize">Blob scale</label><span class="value"
+              id="blobSizeValue">1.0×</span></div>
+          <input id="blobSize" type="range" min=".65" max="3" step=".05" value="1">
+        </div>
+
+        <div class="section-label">Motion & glow</div>
+        <div class="control">
+          <div class="control-head"><label for="speed">Flow speed</label><span class="value" id="speedValue">1.0×</span>
+          </div>
+          <input id="speed" type="range" min=".3" max="2.2" step=".1" value="1">
+        </div>
+        <div class="control">
+          <div class="control-head"><label for="glow">Ambient glow</label><span class="value" id="glowValue">55%</span>
+          </div>
+          <input id="glow" type="range" min="0" max="100" value="55">
+        </div>
+        <div class="control">
+          <div class="control-head"><label for="physicsStrength">Physics Goo Strength</label><span class="value"
+              id="physicsStrengthValue">55%</span></div>
+          <input id="physicsStrength" type="range" min="0" max="100" step="5" value="55">
+        </div>
+      </div>
+    </aside>
+
+    <section class="player" id="audio-player" aria-label="Custom music player">
+      <button class="player-toggle" id="togglePlayer" type="button" aria-expanded="true" aria-label="Hide music player"
+        title="Hide music player; drag to move">
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <button class="play-button" id="playButton" aria-label="Play audio" title="Play / pause">
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="track" title="Drag to move the music player">
+        <div class="track-name" id="trackName">No track selected</div>
+        <div class="track-sub" id="trackStatus">OPEN A LOCAL MP3 TO BEGIN</div>
+      </div>
+      <div class="spectrum" id="spectrum" aria-hidden="true"></div>
+      <button class="load-button" id="loadButton" aria-label="Choose a local MP3" title="Choose MP3">
+        <i class="fa-solid fa-folder-open"></i>
+      </button>
+      <div class="progress-row">
+        <span class="time" id="currentTime">0:00</span>
+        <input id="progress" type="range" min="0" max="100" value="0" aria-label="Track position">
+        <span class="time" id="duration">0:00</span>
+      </div>
+      <label class="volume-row" for="volume">
+        <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+        <input id="volume" type="range" min="0" max="1" step=".01" value=".9" aria-label="Volume">
+      </label>
+      <input id="fileInput" type="file" accept="audio/mpeg,audio/mp3,.mp3" hidden>
+      <audio id="audio" preload="metadata"></audio>
+    </section>
+
+    <div class="toast" id="toast" role="status"></div>
+    <section class="help-backdrop" id="helpDialog" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+      <div class="help-card">
+        <button class="icon-button help-close" id="closeHelp" aria-label="Close help">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="settings-kicker">LUCENT · QUICK GUIDE</div>
+        <h2 id="helpTitle">Make the lamp yours.</h2>
+
+        <h3>Customize the lamp</h3>
+        <p>Open Lamp Studio to change the vessel, wax and liquid colors, wax amount,
+          blob scale, flow speed, and glow. Choose Small, Medium, or Large beneath
+          the lamp.</p>
+
+        <h3 class="settings-title">Change a Mood</h3>
+        <p>Use the color picker in the top bar to change the background. Choose a
+          curated mood or generate a new combination with the randomizer.</p>
+
+        <h3>Play your own music</h3>
+        <p>Select the folder icon to open an MP3 from your device. Press play to
+          start the track. Use the orange spectrum to see the sound across the
+          player, adjust volume with its slider, and pause or resume with the
+          play button. Hover over the player for an orange particle burst; the
+          effect stays the same size in fullscreen. Drag the track name to move
+          the player, or drag its toggle when the player is collapsed.</p>
+
+        <h3>Physics Simulation</h3>
+        <p>Open Lamp Studio and switch to Physics Simulation to try the separate
+          Paper.js lava animation. The size buttons and lamp studio controls also
+          affect the simulation. Use its base power and play/pause buttons to
+          control the animation; switch back to return to the classic lamp.</p>
+
+        <h3>Fullscreen</h3>
+        <p>Select the expand icon to enter fullscreen. Select it again, or press
+          Escape, to leave fullscreen.</p>
+
+        <h3>Refresh and water waves</h3>
+        <p>Use the refresh icon to reload the page. When focus is not in a control,
+          press Space to pause or resume the water-wave animation; if it has
+          finished, Space plays it again. On a small screen, use the water icon
+          to replay the wave and the eye icon to show or hide the Mac-style dock.
+          The GSAP Developer scrubber also controls its playhead on desktop.</p>
+
+        <h3>Keyboard shortcuts</h3>
+        <p>Press H to show or hide the GSAP Developer Tools scrubber. Press M to
+          show or hide the macOS-style dock. Shortcuts are ignored while using a
+          button, slider, or text field.</p>
+
+        <p class="help-note">Your selected MP3 is played locally in this browser.</p>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!-- Start of: MacOS Navigation Bar -->
+
+  <div id="wrapper" class="wrapper">
+    <ul class="toolbar">
+      <li class="toolbarItem">
+        <button class="toolbarLink default-lamp-button" id="defaultLampButton" type="button"
+          aria-label="Restore classic lava lamp" title="Restore classic lava lamp">
+          <svg class="toolbarImg default-lamp-icon" viewBox="0 0 40 40" aria-hidden="true">
+            <path fill="#aeb1ba" d="M15 3h10v5H15z" />
+            <path fill="#b9bbc2" d="M12 8h16l-1.5 3h-13z" />
+            <path fill="#4a4c55" stroke="#c9cbd2" stroke-width="1"
+              d="M14 11c-2 3-3 6-3 10v8c0 3 4 5 9 5s9-2 9-5v-8c0-4-1-7-3-10z" />
+            <path fill="#bfc1c9" d="M9 33h22v3H9zM13 36h3v2h-3zm11 0h3v2h-3z" />
+            <circle cx="17" cy="24" r="2.5" fill="#ff8a24" />
+            <circle cx="23" cy="18" r="2" fill="#ff8a24" />
+            <circle cx="23" cy="28" r="1.5" fill="#ff8a24" />
+          </svg>
+        </button>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-star.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-wobble.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-windmill.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-sparkle.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-lightning.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-flower.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-diamond.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-keyframe.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/3D-combo.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/2D-label.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/3D-cone.png" alt="">
+        </a>
+      </li>
+      <li class="toolbarItem">
+        <a class="toolbarLink" href="#!">
+          <img class="toolbarImg" src="https://assets.codepen.io/16327/3D-hoop.png" alt="">
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- End of: MacOS Navigation Bar -->
+
+
+  <script>
+
+    const themeAudio = new Audio();
+    themeAudio.src = "./soundeffects/flurrysmall.mp3";
+
+    function playThemeToggleSound() {
+      themeAudio.currentTime = 0; // Reset to the beginning
+      themeAudio.play().catch((error) => {
+        console.warn("Unable to play theme toggle sound.", error);
+      });
+    }
+
+    const themeButton = document.querySelector("#theme");
+    const themeLabel = themeButton.querySelector(".theme-toggle-label");
+    function setTheme(theme) {
+      playThemeToggleSound();
+      document.documentElement.dataset.theme = theme;
+      const isDark = theme === "dark";
+      themeButton.classList.toggle("is-dark", isDark);
+      themeButton.setAttribute("aria-pressed", String(isDark));
+      themeButton.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
+      themeLabel.textContent = isDark ? "Light" : "Dark";
+      try {
+        localStorage.setItem("lavalamp-theme", theme);
+      } catch (error) {
+        console.warn("Unable to save the selected theme.", error);
+      }
+    }
+    themeButton.addEventListener("click", () => {
+      setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+    });
+    try {
+      setTheme(localStorage.getItem("lavalamp-theme") || "dark");
+    } catch (error) {
+      console.warn("Unable to read the saved theme.", error);
+      setTheme("dark");
+    }
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.1/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.15.1/dist/MorphSVGPlugin.min.js"></script>
+
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/Draggable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/InertiaPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/Physics2DPlugin.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/GSDevTools.min.js"></script>
+  <!-- <script src='https://assets.codepen.io/16327/GSDevTools3.min.js?r=1234'></script>-->
+
+  <script src="scripts/flowwipe.js"></script>
+  <script src="scripts/lavalamp.js"></script>
+  <script src="scripts/macOSnav.js"></script>
+  <script src="scripts/gsap-particle-explosions.js"></script>
+  <script src="scripts/theme-particles.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.18/paper-full.min.js"></script>
+  <script src="physics-simulation/paper-lava-simulation.js"></script>
+  <script src="physics-simulation/physics-mode-toggle.js"></script>
+
+
+
+</body>
+
+</html>

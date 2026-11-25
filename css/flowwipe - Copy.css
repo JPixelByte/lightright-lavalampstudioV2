@@ -1,0 +1,27 @@
+* {
+	position:relative;
+}
+body, html {
+	width:100%;
+	height:100%;
+}
+
+body {
+	margin:0;
+	overflow:hidden;
+}
+
+
+#middle, #end {
+	visibility:hidden;
+	
+}
+
+#demo {
+	outline:1px solid red;
+	background:#1d1d1d;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	
+}
