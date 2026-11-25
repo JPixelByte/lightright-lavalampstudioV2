@@ -99,5 +99,8 @@ https://gsap.com/
 Mac Style OS:
 2026 GSAP (https://codepen.io/GreenSock/pen/PwNeKZy)
 
+Meta-Balls:
+PaperJS:[PaperJs:](https://paperjs.org/)
+
 Carl's Creative Coding Club: Curve Wipe:
 https://www.creativecodingclub.com/bundles/creative-coding-club
